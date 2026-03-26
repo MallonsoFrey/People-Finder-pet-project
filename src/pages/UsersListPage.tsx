@@ -109,13 +109,13 @@ const UsersListPage = () => {
                 />
               )}
               {user.name}
-              <div className="list-img">
+              <span className="list-img">
                 <img
                   className="open-user-svg"
                   src="/right.svg"
                   alt="right arrow icon"
                 />
-              </div>
+              </span>
             </p>
           ))
         ) : (

@@ -50,25 +50,59 @@ const UserModal = () => {
         Adding a new user
       </div>
       <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Name" {...register("name", { required: true })}/>
-        {errors.name && <span>Name is required</span>}
-
-        <input placeholder="Email" {...register("email", { required: true })} />
-        {errors.email && <span>Email is required</span>}
-
-        <Controller
-          name="phone"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <PhoneInput
-              country={"us"}
-              value={field.value}
-              onChange={field.onChange}
-              inputStyle={{ width: "100%" }}
-            />
+        <div className="input-container">
+          <input
+            placeholder="Name"
+            {...register("name", {
+              required: "Name is required",
+              minLength: {
+                value: 2,
+                message: "Minimum 2 characters",
+              },
+            })}
+          />
+          {errors?.name && (
+            <span className="error-message">{errors.name.message}</span>
           )}
-        />
+        </div>
+
+        <div className="input-container">
+          <input
+            placeholder="Email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email",
+              },
+            })}
+          />
+          {errors?.email && (
+            <span className="error-message">{errors.email.message}</span>
+          )}
+        </div>
+
+        <div className="input-container">
+          <Controller
+            name="phone"
+            control={control}
+            rules={{
+              required: "Phone is required",
+              validate: (value) => value.length > 6 || "Phone is too short",
+            }}
+            render={({ field }) => (
+              <PhoneInput
+                country={"us"}
+                value={field.value}
+                onChange={field.onChange}
+                inputStyle={{ width: "100%" }}
+              />
+            )}
+          />
+          {errors?.phone && (
+            <span className="error-message">{errors.phone.message}</span>
+          )}
+        </div>
 
         <button className="add-user-btn" type="submit">
           <img src="/cross.svg" alt="add user icon" />

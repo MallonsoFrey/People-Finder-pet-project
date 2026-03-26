@@ -109,6 +109,7 @@ html {
 }
 
 .list-img {
+  display: inline-block;
   width: 20px;
   height: 20px;
 }
@@ -337,7 +338,6 @@ html {
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
-  font-size: 16px;
 }
 
 .modal-form input {
@@ -351,6 +351,11 @@ html {
 .modal-form input:focus {
   border: 2px solid rgba(156, 39, 176, 0.5);
   outline: none;
+}
+
+.modal-form input,
+.react-phone-input-2 input {
+  font-size: 16px !important;
 }
 
 #scrollToTopBtn {
@@ -367,6 +372,16 @@ html {
   width: 30px;
   height: 30px;
   transform: rotate(-90deg);
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: crimson;
+  font-size: 10px;
+  text-align: left;
 }
 
 @media screen and (max-width: 768px) {
