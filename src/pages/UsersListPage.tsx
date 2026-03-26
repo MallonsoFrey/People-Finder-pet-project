@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers } from "../store/usersSlice";
 import UserModal from "../components/UserModal";
+import { User } from "../api/usersApi";
 
 const UsersListPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [inputValue, setInPutValue] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<"asc" | null>(null);
 
   const { users, loading, error } = useAppSelector((state) => state.users);
 
@@ -21,7 +23,6 @@ const UsersListPage = () => {
 
   const indexOfLastUser = page * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   const totalPages = Math.ceil(users.length / usersPerPage);
 
@@ -36,18 +37,42 @@ const UsersListPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const filteredUsers = currentUsers.filter((user) =>
-    user.name
-      .toLocaleLowerCase()
-      .includes(inputValue.trim().toLocaleLowerCase()),
-  );
+  const filteredUsers = users
+    .filter((user) =>
+      user.name
+        .toLocaleLowerCase()
+        .includes(inputValue.trim().toLocaleLowerCase()),
+    )
+    .reverse();
+
+  const processedUsers = filteredUsers
+    .filter((user) =>
+      user.name.toLowerCase().includes(inputValue.trim().toLowerCase()),
+    )
+    .sort((a, b) => {
+      if (!sortOrder) return 0;
+
+      const result = a.name.localeCompare(b.name, ["en", "ru"], {
+        sensitivity: "base",
+      });
+
+      return sortOrder === "asc" ? result : -result;
+    })
+    .slice(indexOfFirstUser, indexOfLastUser);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="main-page-container">
       <div className="users-container">
         <div className="users-searchbar-container">
           <input
-          name="user search"
+            name="user search"
             placeholder="Who do you want to find?"
             className="users-searchbar"
             type="text"
@@ -61,10 +86,22 @@ const UsersListPage = () => {
             alt="delete search icon"
             onClick={() => setInPutValue("")}
           />
+          <img
+            className="sort-svg"
+            src="/sort.svg"
+            alt="sort users icon"
+            onClick={() =>
+              setSortOrder((prev) => (prev === "asc" ? null : "asc"))
+            }
+          />
         </div>
-        {filteredUsers.length !== 0 ? (
-          filteredUsers.map((user) => (
-            <p className="user-preview" key={user.id} onClick={() => navigate(`/users/${user.id}`)}>
+        {processedUsers.length !== 0 ? (
+          processedUsers.map((user) => (
+            <p
+              className="user-preview"
+              key={user.id}
+              onClick={() => navigate(`/users/${user.id}`)}
+            >
               {user.avatar && (
                 <img
                   src={user.avatar}
@@ -73,17 +110,23 @@ const UsersListPage = () => {
                 />
               )}
               {user.name}
-              <img className="open-user-svg" src="/right.svg" alt="right arrow icon" />
+              <div className="list-img">
+                <img
+                  className="open-user-svg"
+                  src="/right.svg"
+                  alt="right arrow icon"
+                />
+              </div>
             </p>
           ))
         ) : (
           <p>No users found</p>
         )}
       </div>
-      <UserModal/>
+      <UserModal />
 
       <Pagination
-      className="pagination"
+        className="pagination"
         count={totalPages}
         page={page}
         onChange={handlePageChange}
@@ -91,6 +134,14 @@ const UsersListPage = () => {
         color="secondary"
         sx={{ mt: 3, display: "flex", justifyContent: "center" }}
       />
+
+      <button
+        id="scrollToTopBtn"
+        title="Go to top"
+        onClick={() => scrollToTop()}
+      >
+        <img src="/right.svg" alt="go up button" />
+      </button>
     </div>
   );
 };

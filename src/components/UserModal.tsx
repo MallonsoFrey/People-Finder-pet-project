@@ -50,7 +50,7 @@ const UserModal = () => {
         Adding a new user
       </div>
       <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Name" {...register("name", { required: true })} />
+        <input placeholder="Name" {...register("name", { required: true })}/>
         {errors.name && <span>Name is required</span>}
 
         <input placeholder="Email" {...register("email", { required: true })} />

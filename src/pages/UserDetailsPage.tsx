@@ -32,6 +32,7 @@ const UserDetailPage = () => {
     }
   };
 
+
   if (loading) return <CircularProgress />;
   if (error) return <Typography>Error: {error}</Typography>;
   if (!user) return <Typography>User not found</Typography>;
@@ -55,8 +56,7 @@ const UserDetailPage = () => {
           {user.email}
         </p>
         <p className="user-detail">
-          <img src="/mobile.svg" alt="mobile icon" />
-          {user.phone}
+          <img src="/mobile.svg" alt="mobile icon" />+{user.phone}
         </p>
         <p className="user-detail">
           <img src="/calendar.svg" alt="calendar icon" />
