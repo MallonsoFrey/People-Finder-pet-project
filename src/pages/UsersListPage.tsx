@@ -54,11 +54,11 @@ const UsersListPage = () => {
             value={inputValue}
             onChange={(e) => setInPutValue(e.target.value)}
           />
-          <img className="searchbar-svg" src="/search.svg" alt="" />
+          <img className="searchbar-svg" src="/search.svg" alt="search icon" />
           <img
             className="searchbar-delete"
             src="/cross.svg"
-            alt=""
+            alt="delete search icon"
             onClick={() => setInPutValue("")}
           />
         </div>
@@ -73,7 +73,7 @@ const UsersListPage = () => {
                 />
               )}
               {user.name}
-              <img className="open-user-svg" src="/right.svg" alt="" />
+              <img className="open-user-svg" src="/right.svg" alt="right arrow icon" />
             </p>
           ))
         ) : (
