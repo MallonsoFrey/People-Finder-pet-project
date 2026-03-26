@@ -78,6 +78,7 @@ html {
 }
 
 .user-preview {
+  height: 30px;
   width: 100%;
   position: relative;
   margin: 0;
