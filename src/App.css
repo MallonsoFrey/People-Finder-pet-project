@@ -161,6 +161,9 @@ html {
   height: fit-content;
   cursor: pointer;
   transition: all 0.3s ease-in-out 0s;
+  color: black;
+  font-weight: 500;
+  background-color:  rgba(156, 39, 176, 0.12);
 }
 
 .add-user-btn {
