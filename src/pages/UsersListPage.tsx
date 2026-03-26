@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUsers } from "../store/usersSlice";
 import UserModal from "../components/UserModal";
-import { User } from "../api/usersApi";
 
 const UsersListPage = () => {
   const dispatch = useAppDispatch();
