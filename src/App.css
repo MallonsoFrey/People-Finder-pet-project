@@ -165,8 +165,40 @@ html {
 }
 .searchbar-delete:hover,
 .open-user-svg:hover,
-.sort-svg:hover {
+.sort-svg:hover,
+.edit-user-btn img:hover,
+.close-modal img:hover {
   transform: scale(1.2);
+}
+
+.edit-user-btn,
+.close-modal {
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.close-modal {
+  margin-left: auto;
+}
+
+.edit-user-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.close-modal img {
+  width: 30px;
+  height: 30px;
+}
+
+.user-details-left-btns {
+  display: flex;
+  gap: 3px;
 }
 
 .back-to-list-btn,
@@ -284,6 +316,9 @@ html {
 .add-user-btn img {
   width: 20px;
   height: 20px;
+}
+
+.add-user-img {
   transform: rotate(45deg);
 }
 
@@ -341,6 +376,13 @@ html {
   margin-top: 20px;
 }
 
+.edit-user-modal {
+  background: white;
+  margin: 70px auto;
+  width: 390px;
+  height: fit-content;
+}
+
 .modal-form input {
   height: 35px;
   border-radius: 20px;
@@ -385,7 +427,43 @@ html {
   text-align: left;
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 25px;
+  aspect-ratio: 1;
+  display: grid;
+}
+.loader::before,
+.loader::after {    
+  content:"";
+  grid-area: 1/1;
+  --c:no-repeat radial-gradient(farthest-side,rgb(118, 0, 255, 0.2) 92%,#0000);
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 8px 8px;
+  animation: l12 1s infinite;
+}
+.loader::before {
+  margin: 4px;
+  filter: hue-rotate(45deg);
+  background-size: 5px 5px;
+  animation-timing-function: linear
+}
+
+@keyframes l12 { 
+  100%{transform: rotate(.5turn)}
+}
 @media screen and (max-width: 768px) {
+  .edit-user-modal {
+    border-radius: unset;
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+  }
+
   #scrollToTopBtn {
     z-index: 1;
     display: flex;

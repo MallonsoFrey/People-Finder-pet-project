@@ -122,7 +122,7 @@ const UsersListPage = () => {
           <p>No users found</p>
         )}
       </div>
-      <UserModal />
+      <UserModal mode={'add'}/>
 
       <Pagination
         className="pagination"
