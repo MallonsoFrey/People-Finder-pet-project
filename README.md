@@ -38,7 +38,7 @@ git clone https://github.com/MallonsoFrey/People-Finder-pet-project.git
 cd People-Finder-pet-project
 npm install
 npm run start
-
+```
 ---
 
 # 🇬🇧 README (English)
