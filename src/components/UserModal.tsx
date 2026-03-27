@@ -37,6 +37,7 @@ const UserModal = (props: ModalProps) => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm<Inputs>({
     defaultValues: {
       name: user?.name || "",
@@ -60,6 +61,8 @@ const UserModal = (props: ModalProps) => {
         try {
           setIsSaving(true);
           await dispatch(addUser(newUser)).unwrap();
+          reset();
+          setIsSaving(false);
           navigate("/");
         } catch (error) {
           console.error("Error creating user:", error);
