@@ -43,7 +43,6 @@ npm run start
 
 # 🇬🇧 README (English)
 
-```md
 # 👤 User Management App
 
 A simple web application for managing users with the ability to view, add, edit, and delete users.
