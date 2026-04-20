@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Typography, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { fetchUserById, removeUser } from "../store/usersSlice";
+import { clearCurrentUser } from "../store/usersSlice";
 import { Modal } from "@mui/material";
 import UserModal from "../components/UserModal";
 
@@ -39,6 +40,11 @@ const UserDetailPage = () => {
     setIsModalOpen(false);
   };
 
+  const goBack = () => {
+    dispatch(clearCurrentUser())
+    navigate("/");
+  }
+
   if (loading) return <CircularProgress />;
   if (error) return <Typography>Error: {error}</Typography>;
   if (!user) return <Typography>User not found</Typography>;
@@ -47,7 +53,7 @@ const UserDetailPage = () => {
     <div>
       <div className="user-details-container">
         <div className="btns-container">
-          <button className="back-to-list-btn" onClick={() => navigate("/")}>
+          <button className="back-to-list-btn" onClick={goBack}>
             Back
             <img
               className="back-to-list-svg"

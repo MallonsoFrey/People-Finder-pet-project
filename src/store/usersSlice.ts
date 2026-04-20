@@ -63,7 +63,11 @@ export const removeUser = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCurrentUser: (state) => {
+      state.currentUser = null;
+    },
+  },
   extraReducers: (builder) => {
     // Fetch all users
     builder.addCase(fetchUsers.pending, (state) => {
@@ -119,4 +123,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { clearCurrentUser } = usersSlice.actions;
 export default usersSlice.reducer;
